@@ -9,7 +9,7 @@ enterCli.addEventListener('keypress', pressEnter);
 enterCli2 = document.getElementById('startTime2');
 enterCli2.addEventListener('keypress', pressEnter2);
 befTimeMin = 999
-
+interval75 = 14.5
 cntFalseCnt = 1
 let aResult = [{ aTime: 0, aColor: "" }];
 
@@ -169,8 +169,8 @@ function calcStart25() {
     bombTimeSet = timeSet - 110
 
     // 時刻表生成
-    setCell("blue", timeSet, 15)
-    setCell("yellow", bombTimeSet, 15)
+    setCell("blue", timeSet, interval75)
+    setCell("yellow", bombTimeSet, interval75)
     timeMin = String(time2).slice(0, -2);
     timeSec = String(time2).slice(-2);
     timeSet = Number(timeMin) * 60 + Number(timeSec)
@@ -203,8 +203,8 @@ function calcStart75() {
     bombTimeSet = timeSet - 110
 
     // 時刻表生成
-    setCell("blue", timeSet, 15)
-    setCell("yellow", bombTimeSet, 15)
+    setCell("blue", timeSet, interval75)
+    setCell("yellow", bombTimeSet, interval75)
 
     appScr()
     if (inter != null) {
