@@ -216,7 +216,7 @@ function setCell(color, bTime, intervalTime) {
     for (let nowTime = bTime; nowTime > 0; nowTime -= intervalTime) {
         arrFind = aResult.find(({ aTime }) => aTime == Math.floor(nowTime))
 
-        if (arrFind != undefined && color == "yellow") {
+        if (arrFind != undefined) {
             aResult = aResult.filter(({ aTime }) => aTime != Math.floor(nowTime))
             aResult.push({ aTime: Math.floor(nowTime), aColor: "rainbow" })
         } else {
@@ -276,7 +276,7 @@ function setFalseNextTime() {
 
             console.log("ss4Bef:" + ss4Bef);
             console.log("ss4:" + ss4);
-            if (ss4 < ss4Bef) {
+            if (ss4 <= ss4Bef) {
                 intTime = (ss4Bef - ss4 - startInter) * 1000
                 console.log("a");
 
