@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>デルメゼ用</title>
+</head>
+
+<body>
+    <h1>AIカウント補助ツール</h1>
+    <h2>AIカウント</h2>
+    <table border="2">
+        <tr>
+            <td id="AI_Count">1</td>
+        </tr>
+    </table>
+
+    <h2>MAX AI</h2>
+    <table border="2">
+        <tr>
+            <td id="MAX_AI">2</td>
+        </tr>
+    </table>
+    最大AI切り替えボタン
+    <div>
+        <select id="MAX_AI_Change_Button_Value">
+			<option value="1">A</option>
+			<option value="0">B</option>
+			<option value="3">X</option>
+			<option value="2">Y</option>
+			<option value="4">L</option>
+			<option value="5">R</option>
+			<option value="6">ZL</option>
+			<option value="7">ZR</option>
+			<option value="8" selected>-</option>
+			<option value="9">+</option>
+			<option value="10">L stick</option>
+			<option value="11">R stick</option>
+			<option value="12">↑</option>
+			<option value="13">↓</option>
+			<option value="14">←</option>
+			<option value="15">→</option>
+			<option value="16">しいたけ</option>
+		</select>
+    </div>
+    AIカウントボタン
+    <div>
+        <select id="AI_Count_Button_Value">
+			<option value="1">A</option>
+			<option value="0">B</option>
+			<option value="2">Y</option>
+			<option value="3">X</option>
+			<option value="4">L</option>
+			<option value="5" selected>R</option>
+			<option value="6">ZL</option>
+			<option value="7">ZR</option>
+			<option value="8">-</option>
+			<option value="9">+</option>
+			<option value="10">L stick</option>
+			<option value="11">R stick</option>
+			<option value="12">↑</option>
+			<option value="13">↓</option>
+			<option value="14">←</option>
+			<option value="15">→</option>
+			<option value="16">しいたけ</option>
+		</select>
+    </div>
+
+    </div>
+    <style>
+        table {
+            table-layout: fixed;
+            text-align: center;
+        }
+        
+        #AI_Count {
+            width: 120pt;
+            height: 120pt;
+            font-size: 100pt;
+        }
+        
+        #MAX_AI {
+            width: 100pt;
+            height: 100pt;
+            font-size: 80pt;
+        }
+        
+        #rainbow {
+            background: linear-gradient(to right, #f5909088, #fcd8a16c, #fff8b1af, #a5d4ad9a, #a3bce298, #a59acaa6, #cfa7cd9f);
+        }
+        
+        #yellow {
+            background-color: rgba(255, 255, 0, 0.39);
+        }
+    </style>
+    <script src="derumeze_AI.js" charset="utf-8"></script>
+</body>
+
+</html>

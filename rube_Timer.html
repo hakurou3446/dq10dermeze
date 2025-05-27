@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ルベランギスカウンター</title>
+</head>
+
+<body>
+    <link rel="stylesheet" href="./bootstrap.css">
+    <h1>ルベランギスカウンター</h1>
+    <div>
+        <table width="300" border="1" name="nextFloorTime">
+            <caption>次の床</caption>
+            <tr>
+                <td id="nextMinutes">分</td>
+                <td id="nextSecond">秒</td>
+            </tr>
+        </table>
+    </div>
+    <p>現在時間
+        <input type="button" value="時間リセット" onclick="set10minutes()">
+        <input type="button" value="再開" onclick="timeStart()">
+        <input type="button" value="停止" onclick="timeStop()">
+    </p>
+    <input type="button" value="-" onclick="timeMinus()">
+    <input type="text" id="nokoriTIme">
+    <input type="button" value="+" onclick="timePlus()"><br>
+    <select id="yukaButton">
+        <option value="1">虹1回目</option>
+        <option value="2">虹2回目</option>
+        <option value="3">黄色床</option>
+    </select>
+    <input type="button" value="床開始" onclick="rainbow1Start()">
+    <p>開始時間</p>
+    <div>
+        <select id="yuka">
+            <option value="1">虹1回目</option>
+            <option value="2">虹2回目</option>
+            <option value="3">黄色床</option>
+        </select>
+        <input placeholder="床が出てきた時間を入力" type="text" id="startTime">
+        <input type="button" class="btn btn-primary" value="計算" onclick="calStart()">
+        <input type="button" class="btn btn-warning" value="ストップ" onclick="soundStop()">
+
+    </div>
+    <div id="result">
+    </div>
+
+    <div id="test"></div>
+
+    <style>
+        table {
+            font-size: 20pt;
+        }
+        
+        #rainbow {
+            background: linear-gradient(to right, #f5909088, #fcd8a16c, #fff8b1af, #a5d4ad9a, #a3bce298, #a59acaa6, #cfa7cd9f);
+        }
+        
+        #yellow {
+            background-color: rgba(255, 255, 0, 0.39);
+        }
+    </style>
+    <script src="calcu.js" charset="utf-8"></script>
+</body>
+
+</html>
