@@ -194,7 +194,7 @@ function calcStart25() {
     timeMin = String(time2).slice(0, -2);
     timeSec = String(time2).slice(-2);
     timeSet = Number(timeMin) * 60 + Number(timeSec)
-    bombTimeSet = timeSet - 108
+    bombTimeSet = timeSet - 110
     aResult = aResult.filter(({ aTime, aColor }) => aTime < timeSet && aColor == "yellow" && aTime > bombTimeSet)
     setCell("blue", timeSet, 12.5)
     setCell("yellow", bombTimeSet, 12.5)
@@ -216,7 +216,7 @@ function calcStart75() {
     timeMin = String(time).slice(0, -2);
     timeSec = String(time).slice(-2);
     timeSet = Number(timeMin) * 60 + Number(timeSec)
-    bombTimeSet = timeSet - 108
+    bombTimeSet = timeSet - 110
 
     // 時刻表生成
     setCell("blue", timeSet, interval75)
