@@ -282,6 +282,7 @@ function setFalseNextTimeY() {
             tblElementY[0].removeAttribute('style')
 
         }
+        console.log("yellow_" + String(cntFalseCntY));
 
         tblElementY = document.getElementsByName("yellow_" + String(cntFalseCntY));
         mm4Y = tblElementY[0].parentElement.id;
@@ -315,7 +316,7 @@ function setFalseNextTimeY() {
             }
         }
         if (intTimeY < 0) {
-            startInterY = intTimeY * -1
+            startInterY = intTimeY / 1000 * -1
             intTimeY = 0
         } else {
             startInterY = 0
