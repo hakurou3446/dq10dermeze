@@ -7,37 +7,34 @@
 </head>
 
 <body>
-    <link rel="stylesheet" href="./bootstrap.css">
+    <!-- <link rel="stylesheet" href="./bootstrap.css"> -->
     <h1>デルメゼ自動割れカウンター</h1>
     <div>
-        <table width="300" border="1" name="nextFloorTime">
-            <caption>自爆 OR 弾出現</caption>
+        <caption>弾出現</caption>
+        <table width="300pt" border="1" name="nextFloorTime_blue">
             <tr>
-                <td id="nextMinutes">分</td>
-                <td id="nextSecond">秒</td>
+                <td id="nextMinutes_blue">分</td>
+                <td id="nextSecond_blue">秒</td>
+            </tr>
+        </table>
+        <caption>自爆</caption>
+        <table width="300" border="1" name="nextFloorTime_yellow">
+            <tr>
+                <td id="nextMinutes_yellow">分</td>
+                <td id="nextSecond_yellow">秒</td>
             </tr>
         </table>
     </div>
-    <p>現在時間
-        <input type="button" value="時間リセット" onclick="set10minutes()">
-        <input type="button" value="再開" onclick="timeStart()">
-        <input type="button" value="停止" onclick="timeStop()">
-    </p>
-    <input type="button" value="-" onclick="timeMinus()">
-    <input type="text" id="nokoriTIme">
-    <input type="button" value="+" onclick="timePlus()"><br>
     <p>開始時間</p>
     <div>
         スクランブルサファイア
         <input placeholder="弾が出てきた時間を入力" type="text" id="startTime">
         <input type="button" class="btn btn-primary" value="計算" onclick="calStart()">
-        <input type="button" class="btn btn-warning" value="ストップ" onclick="soundStop()">
     </div>
     <div>
         ブリリアントサファイア
         <input placeholder="弾が出てきた時間を入力" type="text" id="startTime2">
         <input type="button" class="btn btn-primary" value="計算" onclick="calStart2()">
-        <input type="button" class="btn btn-warning" value="ストップ" onclick="soundStop()">
     </div>
 
     <div id="result">
@@ -60,6 +57,23 @@
         
         #blue {
             background-color: rgb(79, 237, 248);
+            /* border: double thick red; */
+        }
+        
+        #nextMinutes_blue,
+        #nextSecond_blue,
+        #nextMinutes_yellow,
+        #nextSecond_yellow {
+            width: 150pt;
+        }
+        
+        #tbl {
+            table-layout: fixed;
+        }
+        
+        #tbl>tr>#blue,
+        #tbl>tr>#yellow {
+            text-align: center;
         }
     </style>
     <script src="calcu_bomb.js" charset="utf-8"></script>

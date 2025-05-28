@@ -3,20 +3,31 @@ var countTime = 0;
 var countDownFlg = false;
 var tblCnt = 0;
 var cntFlg = false;
-var inter = null
+var interY = null
+var interB = null
 enterCli = document.getElementById('startTime');
 enterCli.addEventListener('keypress', pressEnter);
 enterCli2 = document.getElementById('startTime2');
 enterCli2.addEventListener('keypress', pressEnter2);
 befTimeMin = 999
 interval75 = 14.5
-cntFalseCnt = 1
 let aResult = [{ aTime: 0, aColor: "" }];
 
 function pressEnter(e) {
     if (e.keyCode === 13) {
         aResult = [{ aTime: 0, aColor: "" }];
-        cntFalseCnt = 1
+        cntFalseCntY = 0
+        cntFalseCntB = 0
+        tblElementY = null
+        tblElementB = null
+        firstFY = true
+        firstFB = true
+        if (interY != null) {
+            clearTimeout(interY)
+        }
+        if (interB != null) {
+            clearTimeout(interB)
+        }
         calStart();
     }
     return false;
@@ -25,7 +36,18 @@ function pressEnter(e) {
 function pressEnter2(e) {
     if (e.keyCode === 13) {
         aResult = [{ aTime: 0, aColor: "" }];
-        cntFalseCnt = 1
+        cntFalseCntY = 0
+        cntFalseCntB = 0
+        tblElementY = null
+        tblElementB = null
+        firstFY = true
+        firstFB = true
+        if (interY != null) {
+            clearTimeout(interY)
+        }
+        if (interB != null) {
+            clearTimeout(interB)
+        }
         calStart2();
     }
     return false;
@@ -33,7 +55,7 @@ function pressEnter2(e) {
 
 function set10minutes() {
     if (inter != null) {
-        clearInterval(inter);
+        clearTimeout(inter);
     }
     countTime = minutes20;
     countDownFlg = true;
@@ -56,7 +78,7 @@ function countdown() {
 
 function timeStart() {
     if (inter != null) {
-        clearInterval(inter);
+        clearTimeout(inter);
     }
     cntFlg = true;
 }
@@ -124,18 +146,16 @@ function timePlus() {
 }
 
 function calStart() {
-    cntFalseCnt = 1
-        // 開始床状況取得
-        // 時間取得
+    // 時間取得
     time = document.querySelector('#startTime');
     time = time.value;
-    startInter = 2
+    startInter = 4
+    startInterY = startInter
+    startInterB = startInter
 
     calcStart75();
-    if (inter != null) {
-        clearInterval(inter);
-    }
-    inter = setInterval(setFalseNextTime, 0);
+    interY = setTimeout(setFalseNextTimeY, 0);
+    interB = setTimeout(setFalseNextTimeB, 0);
 }
 
 function calStart2() {
@@ -144,12 +164,12 @@ function calStart2() {
     time = time.value;
     time2 = document.querySelector('#startTime2');
     time2 = time2.value;
-    startInter = 1
+    startInter = 4
+    startInterY = startInter
+    startInterB = startInter
     calcStart25();
-    if (inter != null) {
-        clearInterval(inter);
-    }
-    inter = setInterval(setFalseNextTime, 0);
+    interY = setTimeout(setFalseNextTimeY, 0);
+    interB = setTimeout(setFalseNextTimeB, 0);
 }
 
 function calcStart25() {
@@ -176,13 +196,9 @@ function calcStart25() {
     timeSet = Number(timeMin) * 60 + Number(timeSec)
     bombTimeSet = timeSet - 110
     aResult = aResult.filter(({ aTime, aColor }) => aTime < timeSet && aColor == "yellow" && aTime > bombTimeSet)
-    console.log(aResult);
     setCell("blue", timeSet, 12.5)
     setCell("yellow", bombTimeSet, 12.5)
     appScr()
-    if (inter != null) {
-        clearInterval(inter);
-    }
 }
 
 
@@ -207,9 +223,6 @@ function calcStart75() {
     setCell("yellow", bombTimeSet, interval75)
 
     appScr()
-    if (inter != null) {
-        clearInterval(inter);
-    }
 }
 
 function setCell(color, bTime, intervalTime) {
@@ -217,8 +230,9 @@ function setCell(color, bTime, intervalTime) {
         arrFind = aResult.find(({ aTime }) => aTime == Math.floor(nowTime))
 
         if (arrFind != undefined) {
-            aResult = aResult.filter(({ aTime }) => aTime != Math.floor(nowTime))
-            aResult.push({ aTime: Math.floor(nowTime), aColor: "rainbow" })
+            // aResult = aResult.filter(({ aTime }) => aTime != Math.floor(nowTime))
+            // aResult.push({ aTime: Math.floor(nowTime), aColor: "rainbow" })
+            aResult.push({ aTime: Math.floor(nowTime), aColor: color })
         } else {
             aResult.push({ aTime: Math.floor(nowTime), aColor: color })
         }
@@ -228,6 +242,8 @@ function setCell(color, bTime, intervalTime) {
 }
 
 function appScr() {
+    yellowIndex = 0
+    blueIndex = 0
     for (let index = 0; aResult.length - 1 > index; index++) {
         timeMin = Math.floor(aResult[index].aTime / 60)
         timeSec = (aResult[index].aTime) % 60
@@ -240,8 +256,16 @@ function appScr() {
         }
         td = document.createElement('td');
         td.setAttribute('id', aResult[index].aColor);
-        td.setAttribute('name', index);
-        td.innerText = timeSec + '秒';
+        if (aResult[index].aColor == "yellow") {
+            td.setAttribute('name', aResult[index].aColor + "_" + yellowIndex);
+            yellowIndex++
+        } else if (aResult[index].aColor == "blue") {
+            td.setAttribute('name', aResult[index].aColor + "_" + blueIndex);
+            blueIndex++
+
+        }
+        td.setAttribute('width', "40pt");
+        td.innerText = timeSec;
         tr.appendChild(td);
 
         // console.log(index + ":" + aResult[index].aTime);
@@ -252,49 +276,113 @@ function appScr() {
     }
 }
 
-function setFalseNextTime() {
-
-    if (!cntFlg && aResult.length - 1 > cntFalseCnt) {
-        clearInterval(inter);
-        tblElement = document.getElementsByName(String(cntFalseCnt));
-        mm4 = tblElement[0].parentElement.id;
-        ss4 = tblElement[0].innerText;
-
-        nextMArea = document.getElementById('nextMinutes');
-        nextSArea = document.getElementById('nextSecond');
-        nextFloorTime = document.getElementsByName('nextFloorTime');
-        nextFloorTime[0].setAttribute('id', tblElement[0].id);
-        nextMArea.innerText = String(mm4) + '分';
-        nextSArea.innerText = String(ss4);
-        if (aResult.length - 2 > cntFalseCnt) {
-            tblElement = document.getElementsByName(String(cntFalseCnt - 1));
-            mm4Bef = tblElement[0].parentElement.id;
-            ss4Bef = tblElement[0].innerText;
-            ss4 = Number(ss4.replace("秒", ""));
-            ss4Bef = Number(ss4Bef.replace("秒", ""));
-
-
-            console.log("ss4Bef:" + ss4Bef);
-            console.log("ss4:" + ss4);
-            if (ss4 <= ss4Bef) {
-                intTime = (ss4Bef - ss4 - startInter) * 1000
-                console.log("a");
-
-            } else {
-                console.log("b");
-                intTime = (ss4Bef - ss4 + 60 - startInter) * 1000
-            }
-            startInter = 0
-            console.log(intTime);
+function setFalseNextTimeY() {
+    if (!cntFlg && aResult.filter(({ aColor }) => aColor == "yellow").length > cntFalseCntY) {
+        if (tblElementY != null) {
+            tblElementY[0].removeAttribute('style')
 
         }
 
-        cntFalseCnt += 1;
-        inter = setInterval(setFalseNextTime, intTime);
+        tblElementY = document.getElementsByName("yellow_" + String(cntFalseCntY));
+        mm4Y = tblElementY[0].parentElement.id;
+        ss4Y = tblElementY[0].innerText;
+
+        tblElementY[0].setAttribute('style', 'border: groove thick rgb(255, 62, 191)')
+
+        nextMAreaY = document.getElementById('nextMinutes_yellow');
+        nextSAreaY = document.getElementById('nextSecond_yellow');
+        nextFloorTimeY = document.getElementsByName('nextFloorTime_yellow');
+        nextFloorTimeY[0].setAttribute('id', tblElementY[0].id);
+        nextMAreaY.innerText = String(mm4Y) + '分';
+        nextSAreaY.innerText = "0".repeat(2 - String(ss4Y).length) + String(ss4Y);
+        if (cntFalseCntY == 0) {
+            intTimeY = (aResult[0].aTime - (Number(mm4Y) * 60 + Number(ss4Y.replace("秒", ""))) - Number(startInterY)) * 1000
+        } else {
+            if (aResult.length - 2 > cntFalseCntY) {
+                tblElementAY = document.getElementsByName("yellow_" + String(cntFalseCntY - 1));
+                ss4BefY = tblElementAY[0].innerText;
+                ss4Y = Number(ss4Y.replace("秒", ""));
+                ss4BefY = Number(ss4BefY.replace("秒", ""));
+
+
+                if (ss4Y <= ss4BefY) {
+                    intTimeY = (ss4BefY - ss4Y - startInterY) * 1000
+
+                } else {
+                    intTimeY = (ss4BefY - ss4Y + 60 - startInterY) * 1000
+                }
+                aResult[0].aTime
+            }
+        }
+        if (intTimeY < 0) {
+            startInterY = intTimeY * -1
+            intTimeY = 0
+        } else {
+            startInterY = 0
+        }
+        cntFalseCntY += 1;
+        console.log(intTimeY);
+        interY = setTimeout(setFalseNextTimeY, intTimeY);
+
     }
-    if (!(aResult.length - 1 > cntFalseCnt)) {
+    if (!(aResult.length - 1 > cntFalseCntY)) {
         console.log("終了");
-        clearInterval(inter)
+
+    }
+
+}
+
+function setFalseNextTimeB() {
+    if (!cntFlg && aResult.filter(({ aColor }) => aColor == "blue").length > cntFalseCntB) {
+        if (tblElementB != null) {
+            tblElementB[0].removeAttribute('style')
+
+        }
+
+        tblElementB = document.getElementsByName("blue_" + String(cntFalseCntB));
+        mm4B = tblElementB[0].parentElement.id;
+        ss4B = tblElementB[0].innerText;
+
+        tblElementB[0].setAttribute('style', 'border: groove thick rgb(255, 62, 191)')
+
+        nextMAreaB = document.getElementById('nextMinutes_blue');
+        nextSAreaB = document.getElementById('nextSecond_blue');
+        nextFloorTimeB = document.getElementsByName('nextFloorTime_blue');
+        nextFloorTimeB[0].setAttribute('id', tblElementB[0].id);
+        nextMAreaB.innerText = String(mm4B) + '分';
+        nextSAreaB.innerText = "0".repeat(2 - String(ss4B).length) + String(ss4B);
+        if (cntFalseCntB == 0) {
+            intTimeB = (aResult[0].aTime - (Number(mm4B) * 60 + Number(ss4B.replace("秒", ""))) - Number(startInterB)) * 1000
+        } else {
+            if (aResult.length - 2 > cntFalseCntB) {
+                tblElementAB = document.getElementsByName("blue_" + String(cntFalseCntB - 1));
+                ss4BefB = tblElementAB[0].innerText;
+                ss4B = Number(ss4B.replace("秒", ""));
+                ss4BefB = Number(ss4BefB.replace("秒", ""));
+
+
+                if (ss4B <= ss4BefB) {
+                    intTimeB = (ss4BefB - ss4B - startInterB) * 1000
+
+                } else {
+                    intTimeB = (ss4BefB - ss4B + 60 - startInterB) * 1000
+                }
+                aResult[0].aTime
+            }
+        }
+        if (intTimeB < 0) {
+            startInterB = intTimeB / 1000 * -1
+            intTimeB = 0
+        } else {
+            startInterB = 0
+        }
+        console.log(intTimeB);
+        cntFalseCntB += 1;
+        interB = setTimeout(setFalseNextTimeB, intTimeB);
+
+    }
+    if (!(aResult.length - 1 > cntFalseCntB)) {
+        console.log("終了");
 
     }
 
