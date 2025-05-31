@@ -149,7 +149,7 @@ function calStart() {
     // 時間取得
     time = document.querySelector('#startTime');
     time = time.value;
-    startInter = 4
+    startInter = 3
     startInterY = startInter
     startInterB = startInter
 
@@ -164,7 +164,7 @@ function calStart2() {
     time = time.value;
     time2 = document.querySelector('#startTime2');
     time2 = time2.value;
-    startInter = 4
+    startInter = 3
     startInterY = startInter
     startInterB = startInter
     calcStart25();
