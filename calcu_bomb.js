@@ -14,42 +14,40 @@ interval75 = 14.5
 let aResult = [{ aTime: 0, aColor: "" }];
 
 function pressEnter(e) {
-    if (e.keyCode === 13) {
-        aResult = [{ aTime: 0, aColor: "" }];
-        cntFalseCntY = 0
-        cntFalseCntB = 0
-        tblElementY = null
-        tblElementB = null
-        firstFY = true
-        firstFB = true
-        if (interY != null) {
-            clearTimeout(interY)
-        }
-        if (interB != null) {
-            clearTimeout(interB)
-        }
-        calStart();
+    aResult = [{ aTime: 0, aColor: "" }];
+    cntFalseCntY = 0
+    cntFalseCntB = 0
+    tblElementY = null
+    tblElementB = null
+    firstFY = true
+    firstFB = true
+    if (interY != null) {
+        clearTimeout(interY)
     }
+    if (interB != null) {
+        clearTimeout(interB)
+    }
+    calStart();
+
     return false;
 }
 
 function pressEnter2(e) {
-    if (e.keyCode === 13) {
-        aResult = [{ aTime: 0, aColor: "" }];
-        cntFalseCntY = 0
-        cntFalseCntB = 0
-        tblElementY = null
-        tblElementB = null
-        firstFY = true
-        firstFB = true
-        if (interY != null) {
-            clearTimeout(interY)
-        }
-        if (interB != null) {
-            clearTimeout(interB)
-        }
-        calStart2();
+    aResult = [{ aTime: 0, aColor: "" }];
+    cntFalseCntY = 0
+    cntFalseCntB = 0
+    tblElementY = null
+    tblElementB = null
+    firstFY = true
+    firstFB = true
+    if (interY != null) {
+        clearTimeout(interY)
     }
+    if (interB != null) {
+        clearTimeout(interB)
+    }
+    calStart2();
+
     return false;
 }
 
