@@ -13,7 +13,62 @@ befTimeMin = 999
 interval75 = 14.5
 let aResult = [{ aTime: 0, aColor: "" }];
 
+function minusCount75() {
+    console.log("minusCount75");
+
+    fix_Count(-1 * document.getElementById('fix_75').value)
+}
+
+function plusCount75() {
+    console.log("plusCount75");
+    fix_Count(document.getElementById('fix_75').value)
+}
+
+function fix_Count(fixCount) {
+    console.log("fix_Count");
+    let tmpResult = [{ aTime: 0, aColor: "" }];
+    for (let index = 0; aResult.length - 1 > index; index++) {
+        tmpTime = aResult[index].aTime
+        if (tmpTime < 0) {
+            // aResult[index].aTime
+        } else {
+            tmpResult.push({ aTime: Number(tmpTime) + Number(fixCount), aColor: aResult[index].aColor })
+        }
+    }
+    tmpResult.sort((a, b) =>
+        a.aTime < b.aTime ? 1 : -1);
+    aResult = null
+    aResult = tmpResult
+    tblCnt = 1
+    tbl = document.createElement('table');
+    tbl.setAttribute('id', 'tbl');
+    tbl.setAttribute('border', '2');
+    appScr()
+    tblElementY = document.getElementsByName("yellow_" + String(cntFalseCntY - 1));
+    tblElementY[0].setAttribute('style', 'border: groove thick rgb(255, 62, 191)')
+    tblElementB = document.getElementsByName("blue_" + String(cntFalseCntB - 1));
+    tblElementB[0].setAttribute('style', 'border: groove thick rgb(255, 62, 191)')
+
+}
+
 function pressEnter(e) {
+    console.log("pressEnter");
+    if (e.keyCode === 13) {
+        calcStart();
+    }
+    return false;
+}
+
+function pressEnter2(e) {
+    console.log("pressEnter2");
+    if (e.keyCode === 13) {
+        calcStart2();
+    }
+    return false;
+}
+
+function calcStart() {
+    console.log("calcStart");
     aResult = [{ aTime: 0, aColor: "" }];
     cntFalseCntY = 0
     cntFalseCntB = 0
@@ -32,7 +87,8 @@ function pressEnter(e) {
     return false;
 }
 
-function pressEnter2(e) {
+function calcStart2() {
+    console.log("calcStart2");
     aResult = [{ aTime: 0, aColor: "" }];
     cntFalseCntY = 0
     cntFalseCntB = 0
@@ -52,6 +108,7 @@ function pressEnter2(e) {
 }
 
 function set10minutes() {
+    console.log("set10minutes");
     if (inter != null) {
         clearTimeout(inter);
     }
@@ -64,6 +121,7 @@ function set10minutes() {
 }
 
 function countdown() {
+    console.log("countdown");
     if ((countTime - 1000) < 0) {
         cntFlg = false;
     }
@@ -75,6 +133,7 @@ function countdown() {
 }
 
 function timeStart() {
+    console.log("timeStart");
     if (inter != null) {
         clearTimeout(inter);
     }
@@ -82,10 +141,12 @@ function timeStart() {
 }
 
 function timeStop() {
+    console.log("timeStop");
     cntFlg = false;
 }
 
 function setNowTime() {
+    console.log("setNowTime");
     countTemp = countTime;
     mm = 0;
     ss = 0;
@@ -102,6 +163,7 @@ function setNowTime() {
 }
 
 function setNextTime(timeM, timeS) {
+    console.log("setNextTime");
     if (tblCnt > 1) {
         timeStr = String(timeM) + ('00' + String(timeS)).slice(-2);
         timeNum = Number(timeStr);
@@ -131,19 +193,22 @@ function setNextTime(timeM, timeS) {
     //console.log(tblCnt);
 }
 
-setInterval(countdown, 1000);
+// setInterval(countdown, 1000);
 
 function timeMinus() {
+    console.log("timeMinus");
     countTime -= 1000;
     setNowTime();
 }
 
 function timePlus() {
+    console.log("timePlus");
     countTime += 1000;
     setNowTime();
 }
 
 function calStart() {
+    console.log("calStart");
     // 時間取得
     time = document.querySelector('#startTime');
     time = time.value;
@@ -157,6 +222,7 @@ function calStart() {
 }
 
 function calStart2() {
+    console.log("calStart2");
     // 時間取得
     time = document.querySelector('#startTime');
     time = time.value;
@@ -171,11 +237,8 @@ function calStart2() {
 }
 
 function calcStart25() {
+    console.log("calcStart25");
     tblCnt = 1
-    result = document.getElementById('result');
-    while (result.lastChild) {
-        result.removeChild(result.lastChild);
-    }
     tbl = document.createElement('table');
     tbl.setAttribute('id', 'tbl');
     tbl.setAttribute('border', '2');
@@ -201,11 +264,8 @@ function calcStart25() {
 
 
 function calcStart75() {
+    console.log("calcStart75");
     tblCnt = 1
-    result = document.getElementById('result');
-    while (result.lastChild) {
-        result.removeChild(result.lastChild);
-    }
     tbl = document.createElement('table');
     tbl.setAttribute('id', 'tbl');
     tbl.setAttribute('border', '2');
@@ -224,6 +284,7 @@ function calcStart75() {
 }
 
 function setCell(color, bTime, intervalTime) {
+    console.log("setCell");
     for (let nowTime = bTime; nowTime > 0; nowTime -= intervalTime) {
         arrFind = aResult.find(({ aTime }) => aTime == Math.floor(nowTime))
 
@@ -240,8 +301,14 @@ function setCell(color, bTime, intervalTime) {
 }
 
 function appScr() {
+    console.log("appScr");
+    let result = document.getElementById('result');
+    while (result.lastChild) {
+        result.removeChild(result.lastChild);
+    }
     yellowIndex = 0
     blueIndex = 0
+
     for (let index = 0; aResult.length - 1 > index; index++) {
         timeMin = Math.floor(aResult[index].aTime / 60)
         timeSec = (aResult[index].aTime) % 60
@@ -251,6 +318,7 @@ function appScr() {
             td = document.createElement('td');
             td.innerText = timeMin + '分';
             tr.appendChild(td);
+
         }
         td = document.createElement('td');
         td.setAttribute('id', aResult[index].aColor);
@@ -270,11 +338,11 @@ function appScr() {
         befTimeMin = timeMin
         tbl.appendChild(tr);
         result.appendChild(tbl);
-
     }
 }
 
 function setFalseNextTimeY() {
+    console.log("setFalseNextTimeY");
     if (!cntFlg && aResult.filter(({ aColor }) => aColor == "yellow").length > cntFalseCntY) {
         if (tblElementY != null) {
             tblElementY[0].removeAttribute('style')
@@ -329,6 +397,7 @@ function setFalseNextTimeY() {
 }
 
 function setFalseNextTimeB() {
+    console.log("setFalseNextTimeB");
     if (!cntFlg && aResult.filter(({ aColor }) => aColor == "blue").length > cntFalseCntB) {
         if (tblElementB != null) {
             tblElementB[0].removeAttribute('style')

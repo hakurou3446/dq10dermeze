@@ -29,13 +29,25 @@
     <div>
         スクランブルサファイア
         <input placeholder="弾が出てきた時間を入力" type="text" id="startTime">
-        <input type="button" class="btn btn-primary" value="計算" onclick="pressEnter()">
+        <input type="button" class="btn btn-primary" value="計算" onclick="calcStart()">
     </div>
     <div>
         ブリリアントサファイア
         <input placeholder="弾が出てきた時間を入力" type="text" id="startTime2">
-        <input type="button" class="btn btn-primary" value="計算" onclick="pressEnter2()">
+        <input type="button" class="btn btn-primary" value="計算" onclick="calcStart2()">
     </div>
+    <div>
+        補正用
+        <input type="button" class="fix_75_minus" value="－" onclick="minusCount75()">
+        <input type="text" id="fix_75" value="1" style="width: 15pt;">
+        <input type="button" class="fix_75_plus" value="＋" onclick="plusCount75()">
+    </div>
+    <!-- <div>
+        補正用
+        <input type="button" class="fix_25_minus" value="－" onclick="minusCount25()">
+        <input type="text" id="fix_25" value="1" style="width: 15pt;">
+        <input type="button" class="fix_25_plus" value="＋" onclick="plusCount25()">
+    </div> -->
 
     <div id="result">
     </div>
