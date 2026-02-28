@@ -16,12 +16,12 @@ let cntType
 let circleStartInter = 6
 let circleCTime = [23.5, 21]
 let circleCColor = ["yellow", "yellow"]
-let circleCOther = ["パターン1", "パターン2", "パターン3"]
+let circleCOther = ["線上", "線上", "金網", "線上", "外周", "金網"]
 
 let grandStartInter = 5
 let grandCTime = [22.2, 24.5]
 let grandCColor = ["rainbow", "yellow"]
-let grandCOther = ["-"]
+let grandCOther = ["-", "外周", "-", "外周", "-", "なし", "-", "線上", "-", "金網", "-", "線上"]
 
 function minusCount75() {
     console.log("minusCount75");
