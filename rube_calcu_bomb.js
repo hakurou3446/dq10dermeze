@@ -160,6 +160,7 @@ function setCell(bTime) {
     console.log("setCell");
     let nowCnt = 0
     let nowCnt2 = 0
+    let minusTime = 0
     color = ""
 
     switch (cntType) {
@@ -173,7 +174,9 @@ function setCell(bTime) {
             CColor = grandCColor
             break;
     }
-    for (let nowTime = bTime; nowTime > 0; nowTime -= CTime[nowCnt2]) {
+    let nowTime = bTime
+    while (nowTime > 0) {
+
         arrFind = aResult.find(({ aTime }) => aTime == Math.floor(nowTime))
         color = CColor[nowCnt2]
         if (arrFind != undefined) {
@@ -183,6 +186,8 @@ function setCell(bTime) {
         } else {
             aResult.push({ aTime: Math.floor(nowTime), aColor: color })
         }
+        minusTime = CTime[nowCnt2]
+        nowTime -= minusTime
         nowCnt++
         nowCnt2 = nowCnt % CTime.length
     }
