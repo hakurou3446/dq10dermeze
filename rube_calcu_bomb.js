@@ -14,8 +14,8 @@ interval75 = 14.5
 let aResult = [{ aTime: 0, aColor: "" }];
 let cntType
 let circleStartInter = 6
-let circleCTime = [23.5, 21]
-let circleCColor = ["yellow", "yellow"]
+let circleCTime = [23.5, 21, 23.5, 21, 23.5, 21]
+let circleCColor = ["yellow", "yellow", "purple", "yellow", "red", "purple"]
 let circleCOther = ["線上", "線上", "金網", "線上", "外周", "金網"]
 
 let grandStartInter = 5
